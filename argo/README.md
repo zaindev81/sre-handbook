@@ -2,6 +2,7 @@
 
 - https://argoproj.github.io/
 - https://argo-workflows.readthedocs.io/en/latest/
+- https://github.com/argoproj/argo-workflows/tree/main/examples
 
 ## Useful Commands
 
@@ -93,3 +94,6 @@ rm -fr ~/.kube/config
 # example's hello-world workflow
 argo submit -n argo --watch hello-world.yaml
 ```
+
+kubectl get pods -n argo
+kubectl delete pods --all -n argo
