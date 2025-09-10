@@ -1,4 +1,4 @@
-# sre-monitoring
+# sre-handbook
 
 - grafana
 - jaeger
