@@ -19,3 +19,8 @@ tar -xf google-cloud-cli-*.tar.gz
 | 5    | **Modules & DRY**            | Split your code into reusable modules (e.g., `vpc`, `gke`, `storage`).                |
 | 6    | **Remote Backend**           | Use GCS bucket as Terraform backend for storing `terraform.tfstate`.                  |
 | 7    | **CI/CD Integration**        | Automate deployments with GitHub Actions or Cloud Build.                              |
+
+
+- https://github.com/terraform-google-modules/terraform-google-project-factory
+- https://registry.terraform.io/modules/terraform-google-modules/project-factory/google/latest/submodules/project_services
+- https://github.com/terraform-google-modules/terraform-google-service-accounts
