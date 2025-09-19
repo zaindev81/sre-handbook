@@ -18,3 +18,8 @@
 * In **IAM**, it is essential as the **unit for access control and permissions management**.
 * In practice, the typical process is:
   **"Create Service Account" → "Assign Roles" → "Generate Key"**.
+
+
+```sh
+gcloud iam roles copy
+```

@@ -8,6 +8,11 @@ tar -xf google-cloud-cli-*.tar.gz
 ./google-cloud-sdk/install.sh
 ```
 
+
+## Docs
+
+[Google Cloud Documentation](https://cloud.google.com/docs)
+
 ## Steps
 
 | Step | Topic                        | Hands-on practice                                                                     |
@@ -24,3 +29,7 @@ tar -xf google-cloud-cli-*.tar.gz
 - https://github.com/terraform-google-modules/terraform-google-project-factory
 - https://registry.terraform.io/modules/terraform-google-modules/project-factory/google/latest/submodules/project_services
 - https://github.com/terraform-google-modules/terraform-google-service-accounts
+
+## Others
+
+- Cloud(VPN)

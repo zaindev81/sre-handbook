@@ -14,15 +14,3 @@ variable "zone" {
   type        = string
   default     = "us-central1-a"
 }
-
-variable "activate_apis" {
-  description = "List of APIs to activate in the project"
-  type        = list(string)
-  default     = [
-    "compute.googleapis.com",
-    "iam.googleapis.com",
-    "appengine.googleapis.com",
-    "cloudbuild.googleapis.com",
-    "storage.googleapis.com"
-  ]
-}
