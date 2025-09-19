@@ -1,8 +1,6 @@
-# In Google Cloud Platform (GCP), a service account name usually refers to the email address of the service account.
-# It uniquely identifies the service account in your GCP project.
-# terraform-admin@<your-project-id>.iam.gserviceaccount.com
-
+#########################
 # Create a Service Account
+#########################
 resource "google_service_account" "terraform_sa" {
   account_id   = var.account_id
   display_name = var.display_name
@@ -15,41 +13,49 @@ resource "google_project_iam_member" "sa_role" {
   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
 }
 
-# Generate Service Account Key (for external systems)
-# resource "google_service_account_key" "terraform_sa_key" {
-#   service_account_id = google_service_account.terraform_sa.name
-# }
+# Generate Service Account Key (for external systems) -> Service Account Page
+resource "google_service_account_key" "terraform_sa_key" {
+  service_account_id = google_service_account.terraform_sa.name
+}
+
+#########################
+# Custom Service Account
+#########################
+resource "google_service_account" "terraform_custom_sa" {
+  account_id   = var.custom_account_id
+  display_name = var.custom_display_name
+}
 
 # Custom IAM Role
-# resource "google_project_iam_custom_role" "custom_role" {
-#   role_id     = "customStorageRole"
-#   title       = "Custom Storage Role"
-#   description = "Custom role with limited storage permissions"
-#   project     = var.project_id
+resource "google_project_iam_custom_role" "custom_role" {
+  role_id     = "customStorageRole"
+  title       = "Custom Storage Role"
+  description = "Custom role with limited storage permissions"
+  project     = var.project_id
 
-#   permissions = [
-#     "storage.buckets.get",
-#     "storage.objects.list",
-#     "storage.objects.get",
-#   ]
-# }
+  permissions = [
+    "storage.buckets.get",
+    "storage.objects.list",
+    "storage.objects.get",
+  ]
+}
 
-# resource "google_project_iam_member" "sa_custom_role" {
-#   project = var.project_id
-#   role    = google_project_iam_custom_role.custom_role.name
-#   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
-# }
+resource "google_project_iam_member" "sa_custom_role" {
+  project = var.project_id
+  role    = google_project_iam_custom_role.custom_role.name
+  member  = "serviceAccount:${google_service_account.terraform_custom_sa.email}"
+}
 
 # Multiple Role Bindings
-# resource "google_project_iam_binding" "multiple_roles" {
-#   project = var.project_id
-#   role    = "roles/storage.admin"
+resource "google_project_iam_binding" "multiple_roles" {
+  project = var.project_id
+  role    = "roles/storage.admin"
 
-#   members = [
-#     "serviceAccount:${google_service_account.terraform_sa.email}",
-#     "user:admin@example.com"
-#   ]
-# }
+  members = [
+    "serviceAccount:${google_service_account.terraform_sa.email}",
+    "serviceAccount:${google_service_account.terraform_custom_sa.email}"
+  ]
+}
 
 # Organization-Level IAM
 # resource "google_organization_iam_member" "org_admin" {

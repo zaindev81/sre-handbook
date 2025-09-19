@@ -15,3 +15,10 @@ output "assigned_role" {
   description = "The role assigned to the service account."
   value       = google_project_iam_member.sa_role.role
 }
+
+# terraform output terraform_sa_private_key
+# terraform output -raw terraform_sa_private_key > key.json
+output "terraform_sa_private_key" {
+  value     = google_service_account_key.terraform_sa_key.private_key
+  sensitive = true
+}

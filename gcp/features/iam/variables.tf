@@ -1,3 +1,8 @@
+variable "org_id" {
+  description = "The GCP organization ID"
+  type        = string
+}
+
 variable "project_id" {
   description = "The GCP project ID"
   type        = string
@@ -15,6 +20,9 @@ variable "zone" {
   default     = "us-central1-a"
 }
 
+#######################
+# Service Account Variables
+#######################
 variable "account_id" {
   description = "The ID of the service account"
   type        = string
@@ -25,4 +33,19 @@ variable "display_name" {
   description = "The display name of the service account"
   type        = string
   default     = "Terraform Admin Service Account"
+}
+
+#######################
+# Custom Service Account Variables
+#######################
+variable "custom_account_id" {
+  description = "The ID of the custom service account"
+  type        = string
+  default     = "terraform-custom-sa"
+}
+
+variable "custom_display_name" {
+  description = "The display name of the custom service account"
+  type        = string
+  default     = "Terraform Custom Service Account"
 }

@@ -2,6 +2,11 @@
 
 ## Flow
 
+In Google Cloud Platform (GCP), a service account name usually refers to the email address of the service account.
+It uniquely identifies the service account in your GCP project.
+terraform-admin@<your-project-id>.iam.gserviceaccount.com
+
+
 ```
 [1] Create Service Account
         ↓
@@ -23,3 +28,5 @@
 ```sh
 gcloud iam roles copy
 ```
+
+- Workload Identify

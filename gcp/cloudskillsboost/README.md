@@ -1,6 +1,7 @@
 # Cloud Skill Boost
 
 - https://www.cloudskillsboost.google/catalog
+- https://cloud.google.com/learn/training/cloud-infrastructure?hl=en#cloud-engineer-learning-path
 
 - Manage Kubernetes in Google Cloud
 - Share Data Using Google Data Cloud
@@ -12,3 +13,10 @@
 - Mitigate Threats and Vulnerabilities with Security Command Center
 - Deploy Kubernetes Applications on Google Cloud
 - Implement Cloud Security Fundamentals on Google Cloud
+
+## Features
+
+- IAM
+- Cloud SQL
+- Cloud Network
+- BigQuery
