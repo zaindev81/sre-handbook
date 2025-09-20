@@ -15,6 +15,33 @@ variable "zone" {
   default     = "us-central1-a"
 }
 
+##########################
+# Database variables
+##########################
+variable "db_instance_name" {
+  description = "Cloud SQL instance name"
+  type        = string
+  default     = "demo-pg"
+}
+
+variable "db_version" {
+  description = "Database version"
+  type        = string
+  default     = "POSTGRES_15"
+}
+
+variable "db_tier" {
+  description = "Database machine type"
+  type        = string
+  default     = "db-custom-1-3840"   # 1vCPU / 3.75GB
+}
+
+variable "db_name" {
+  description = "Database name"
+  type        = string
+  default     = "demo-pg"
+}
+
 variable "db_user" {
   description = "Database user name"
   type        = string

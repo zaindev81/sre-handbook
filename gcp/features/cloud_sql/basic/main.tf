@@ -1,10 +1,11 @@
 resource "google_sql_database_instance" "pg" {
-  name             = "demo-pg"
-  database_version = "POSTGRES_15"
+  name             = var.db_instance_name
+  database_version = var.db_version
   region           = var.region
 
   settings {
-    tier = "db-custom-1-3840"    # 1vCPU / 3.75GB
+    tier = var.db_tier
+
     ip_configuration {
       ipv4_enabled = true        # Public IP
       authorized_networks {
@@ -12,6 +13,7 @@ resource "google_sql_database_instance" "pg" {
         value = "0.0.0.0/0"      # in development
       }
     }
+
     backup_configuration {
       enabled = true
     }
@@ -21,7 +23,7 @@ resource "google_sql_database_instance" "pg" {
 }
 
 resource "google_sql_database" "appdb" {
-  name     = "appdb"
+  name     = var.db_name
   instance = google_sql_database_instance.pg.name
 }
 
