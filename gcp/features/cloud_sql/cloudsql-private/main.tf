@@ -6,15 +6,13 @@ resource "google_sql_database_instance" "pg_private" {
   database_version = var.db_version
   region           = var.region
 
-  depends_on = [google_service_networking_connection.private_vpc_connection]
-
   settings {
     tier              = var.db_tier
     availability_type = "ZONAL" # or REGIONAL for HA
 
     ip_configuration {
       ipv4_enabled    = false
-      private_network = google_compute_network.vpc.id
+      private_network = google_compute_network.vpc.self_link
     }
 
     backup_configuration {
@@ -34,6 +32,8 @@ resource "google_sql_database_instance" "pg_private" {
   }
 
   deletion_protection = var.deletion_protection
+
+  depends_on = [google_service_networking_connection.private_vpc_connection]
 }
 
 # ----------------------
@@ -52,3 +52,6 @@ resource "google_sql_user" "app_private" {
   instance = google_sql_database_instance.pg_private.name
   password = var.db_pass
 }
+
+# Issues
+# Please remove VPC network peering connection manually if you want to destroy the infra.
