@@ -42,6 +42,36 @@ variable "private_range_name" {
   default     = "cloudsql-private-range"
 }
 
+variable "firewall_rule_name" {
+  description = "Firewall rule name for allowing SSH"
+  type        = string
+  default     = "allow-ssh-from-me"
+}
+
+variable "my_ip_cidr" {
+  description = "Your global IP with CIDR to allow SSH"
+  type        = string
+  default     = "0.0.0.0/0"
+}
+
+variable "firewall_protocol" {
+  description = "Protocol to allow (e.g., tcp, udp)"
+  type        = string
+  default     = "tcp"
+}
+
+variable "ssh_port" {
+  description = "SSH port to allow"
+  type        = string
+  default     = "22"
+}
+
+variable "firewall_target_tag" {
+  description = "Optional network tag for firewall targeting"
+  type        = string
+  default     = "ssh-access"
+}
+
 ##########################
 # Database variables
 ##########################

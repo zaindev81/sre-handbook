@@ -50,3 +50,17 @@ resource "google_service_networking_connection" "private_vpc_connection" {
 
   depends_on = [google_compute_global_address.private_range]
 }
+
+resource "google_compute_firewall" "allow_ssh_from_me" {
+  name    = "allow-ssh-from-me"
+  network = google_compute_network.vpc.name
+  direction     = "INGRESS"
+  source_ranges = [var.my_ip_cidr]
+  allow {
+    protocol = "tcp"
+    ports = ["22"]
+  }
+  # target_tags = [var.firewall_target_tag]
+
+  depends_on = [google_compute_network.vpc]
+}

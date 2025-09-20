@@ -2,6 +2,11 @@
 
 ## Subnets
 
+```sh
+nc -vz ip-address 22
+gcloud compute ssh <INSTANCE_NAME> --zone <ZONE> --tunnel-through-iap
+```
+
 
 ```sh
 [VPC: Your Project]
