@@ -33,6 +33,8 @@ resource "google_compute_global_address" "private_range" {
   address_type  = "INTERNAL"
   prefix_length = 16 # /16 => 65,536 IP
   network       = google_compute_network.vpc.id
+
+  depends_on = [google_compute_network.vpc]
 }
 
 # Create a **Service Networking connection** ← This resource
@@ -45,4 +47,6 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   network                 = google_compute_network.vpc.id
   service                 = "servicenetworking.googleapis.com" # Specify the target service for the connection.
   reserved_peering_ranges = [google_compute_global_address.private_range.name]
+
+  depends_on = [google_compute_global_address.private_range]
 }
