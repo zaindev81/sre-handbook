@@ -7,6 +7,7 @@ resource "google_compute_network" "vpc" {
 }
 
 # Like subnet in AWS, VLAN in on-prem
+# Standard IP range used by Compute Engine and applications
 resource "google_compute_subnetwork" "subnet" {
   name          = var.subnet_name
   ip_cidr_range = var.subnet_cidr
@@ -17,6 +18,7 @@ resource "google_compute_subnetwork" "subnet" {
 # ----------------------
 # Private IP for Cloud SQL
 # ----------------------
+# IP range used by Google-managed services
 # This resource is used to reserve an internal IP address range
 # in the VPC specifically for Google-managed services through Private Services Access (PSA).
 # It is required when you want to use Cloud SQL with a private IP.
@@ -48,6 +50,7 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   service                 = "servicenetworking.googleapis.com" # Specify the target service for the connection.
   reserved_peering_ranges = [google_compute_global_address.private_range.name]
 
+  // no need?
   depends_on = [google_compute_global_address.private_range]
 }
 

@@ -55,3 +55,5 @@ resource "google_sql_user" "app_private" {
 
 # Issues
 # Please remove VPC network peering connection manually if you want to destroy the infra.
+# resource "google_service_networking_connection" "private_vpc_connection" is issue
+# terraform state rm google_service_networking_connection.private_vpc_connection

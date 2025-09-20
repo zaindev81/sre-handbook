@@ -23,6 +23,11 @@ variable "activate_apis" {
     "iam.googleapis.com",
     "appengine.googleapis.com",
     "cloudbuild.googleapis.com",
-    "storage.googleapis.com"
+    "storage.googleapis.com",
+    "logging.googleapis.com",
+    "bigquery.googleapis.com",
+    "pubsub.googleapis.com",
+    "storage.googleapis.com",
+    "monitoring.googleapis.com",
   ]
 }
