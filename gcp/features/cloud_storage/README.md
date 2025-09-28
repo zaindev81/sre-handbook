@@ -3,6 +3,7 @@
 ```sh
 export YOUR_PROJECT_ID=
 export YOUR_BUCKET_NAME=
+export YOUR_LOG_BUCKET_NAME=
 gcloud storage buckets list --project $YOUR_PROJECT_ID
 ```
 

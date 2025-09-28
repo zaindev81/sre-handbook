@@ -29,10 +29,19 @@ module "features" {
 resource "google_storage_bucket" "app_data" {
   name                        = "my-app-data-${var.gcp_project_id}"
   location                    = var.gcp_region
+
+  # Uses standard storage, optimized for frequently accessed data.
   storage_class               = "STANDARD"
+
+  # Enables IAM-only permissions for the entire bucket (no per-object ACLs).
   uniform_bucket_level_access = true                    # use IAM uniformly
   force_destroy               = true                    # safety for prod
 
+  # Keeps old versions of objects when they are overwritten or deleted.
+  # Useful for:
+  # Backups
+  # Rollbacks
+  # Auditing changes
   versioning { enabled = true }
 
   lifecycle_rule {
