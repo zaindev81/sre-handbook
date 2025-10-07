@@ -21,6 +21,12 @@ resource "google_service_account_key" "terraform_sa_key" {
 #########################
 # Custom Service Account
 #########################
+resource "random_string" "suffix" {
+  length  = 4
+  upper   = false
+  special = false
+}
+
 resource "google_service_account" "terraform_custom_sa" {
   account_id   = var.custom_account_id
   display_name = var.custom_display_name
@@ -28,16 +34,22 @@ resource "google_service_account" "terraform_custom_sa" {
 
 # Custom IAM Role
 resource "google_project_iam_custom_role" "custom_role" {
-  role_id     = "customStorageRole"
-  title       = "Custom Storage Role"
+  role_id     = "customStorageRole_${random_string.suffix.result}"
+  title       = "Custom Storage Role Test"
   description = "Custom role with limited storage permissions"
-  project     = var.project_id
-
   permissions = [
     "storage.buckets.get",
-    "storage.objects.list",
     "storage.objects.get",
+    "storage.objects.list",
   ]
+
+  // 	The lifecycle stage of the role (GA = Generally Available, meaning active and usable).
+  stage = "ALPHA" // ALPHA, GA, DISABLED
+
+  // This prevents Terraform from accidentally deleting the role even if you run terraform destroy or remove it from code.
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "google_project_iam_member" "sa_custom_role" {
