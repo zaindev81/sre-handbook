@@ -11,7 +11,6 @@ resource "google_storage_bucket" "dataflow_bucket" {
 # gsutil ls gs://$BUCKET_NAME/output/
 # gsutil cat gs://$BUCKET_NAME/output/results*
 
-
 # gcloud dataflow jobs list --region asia-southeast1 --project <>
 
 # terraform taint google_dataflow_job.dataflow_job

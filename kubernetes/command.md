@@ -1,6 +1,7 @@
 # Command
 
 ```sh
+# apply
 k apply -f nginx.yaml
 k apply -f nginx-service.yaml
 
@@ -13,7 +14,7 @@ k delete -f nginx.yaml
 k delete svc nginx-service
 
 # port forward
-k port-forward pod/nginx 8080:80
+k port-forward pod/nginx-pod 8080:80
 k port-forward service/nginx-service 8080:80
 
 # Test Service Access
