@@ -1,3 +1,6 @@
+#######################
+# GCP Variables
+#######################
 variable "project_id" {
   description = "The GCP project ID"
   type        = string
@@ -13,4 +16,48 @@ variable "zone" {
   description = "Default zone for GCP resources"
   type        = string
   default     = "us-central1-a"
+}
+
+variable "environment" {
+  description = "The environment (e.g., dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
+#######################
+# VM Variables
+#######################
+variable "ssh_tags" {
+  description = "The tags to assign to the VM instance"
+  type        = list(string)
+  default     = ["ssh"]
+}
+
+variable "vm_name" {
+  description = "The name of the VM instance"
+  type    = string
+  default = "basic-vm"
+}
+
+variable "machine_type" {
+  description = "The machine type for the VM instance"
+  type    = string
+  default = "e2-micro"
+}
+
+variable "ssh_cidr" {
+  description = "The CIDR range for SSH access"
+  type    = string
+  default = "0.0.0.0/0" # tighten to your IP!
+}
+
+variable "startup_script" {
+  description = "Optional startup script for the VM"
+  type    = string
+  default = <<-SH
+    #!/bin/bash
+    apt-get update -y
+    apt-get install -y nginx
+    systemctl enable --now nginx
+  SH
 }
