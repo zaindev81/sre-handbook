@@ -20,3 +20,12 @@ k port-forward service/nginx-service 8080:80
 # Test Service Access
 http :8080
 ```
+
+PV and PVC
+
+```sh
+k get pv
+k get pvc
+kd pv
+kd pvc
+```

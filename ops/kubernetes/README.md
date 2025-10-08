@@ -11,6 +11,7 @@
 ```sh
 minikube start
 k get po -A
+minikube ssh
 ```
 
 ### Kind
