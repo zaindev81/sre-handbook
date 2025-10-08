@@ -9,6 +9,8 @@ resource "google_bigtable_instance" "main" {
     num_nodes    = 3                      # start with 3 nodes
     storage_type = "SSD"
   }
+
+  deletion_protection = false
 }
 
 # A sample table
