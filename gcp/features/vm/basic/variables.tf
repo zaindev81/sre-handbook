@@ -25,13 +25,33 @@ variable "environment" {
 }
 
 #######################
-# VM Variables
+# Firewall Variables
 #######################
+variable "ssh_cidr" {
+  description = "The CIDR range for SSH access"
+  type    = string
+  default = "0.0.0.0/0" # tighten to your IP!
+}
+
 variable "ssh_tags" {
   description = "The tags to assign to the VM instance"
   type        = list(string)
   default     = ["ssh"]
 }
+
+variable "http_cidr" {
+  type    = string
+  default = "0.0.0.0/0"
+}
+
+variable "http_tags" {
+  type    = list(string)
+  default = ["http"]
+}
+
+#######################
+# VM Variables
+#######################
 
 variable "vm_name" {
   description = "The name of the VM instance"
@@ -45,11 +65,6 @@ variable "machine_type" {
   default = "e2-micro"
 }
 
-variable "ssh_cidr" {
-  description = "The CIDR range for SSH access"
-  type    = string
-  default = "0.0.0.0/0" # tighten to your IP!
-}
 
 variable "startup_script" {
   description = "Optional startup script for the VM"
