@@ -2,7 +2,9 @@
 
 - https://github.com/kubernetes/kubernetes
 
-## Minikube
+## Platforms
+
+### Minikube
 
 [Minikube](https://minikube.sigs.k8s.io/docs/)
 
@@ -11,7 +13,7 @@ minikube start
 k get po -A
 ```
 
-## Kind
+### Kind
 
 [Kind](https://kind.sigs.k8s.io/)
 
