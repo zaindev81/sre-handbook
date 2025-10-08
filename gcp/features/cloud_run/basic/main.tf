@@ -1,4 +1,4 @@
-# Enable required APIs
+# -------- Enable required APIs --------
 resource "google_project_service" "run" {
   service            = "run.googleapis.com"
   disable_on_destroy = false
@@ -9,7 +9,7 @@ resource "google_project_service" "iam" {
   disable_on_destroy = false
 }
 
-# Runtime service account (optional but recommended)
+# -------- Runtime Service Account (optional but recommended) --------
 # lets you attach just the minimal IAM roles needed
 resource "google_service_account" "run_sa" {
   account_id   = "${var.service_name}-sa"
@@ -22,7 +22,7 @@ resource "google_service_account" "run_sa" {
 #   member  = "serviceAccount:${google_service_account.run_sa.email}"
 # }
 
-# Cloud Run v2 service
+# -------- Cloud Run v2 service --------
 resource "google_cloud_run_v2_service" "app" {
   name     = var.service_name
   location = var.region
@@ -35,6 +35,8 @@ resource "google_cloud_run_v2_service" "app" {
       image = var.image
     }
   }
+
+  deletion_protection = false
 
   depends_on = [google_project_service.run]
 }

@@ -37,4 +37,5 @@ variable "image" {
   description = "The container image for the Cloud Run service"
   type        = string
   default     = "gcr.io/cloudrun/hello"
+  # default     = "gcr.io/google-samples/hello-app:1.0"
 }
