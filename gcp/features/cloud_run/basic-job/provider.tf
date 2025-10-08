@@ -1,3 +1,7 @@
+locals {
+  project_name = "${var.project_id}-${var.environment}"
+}
+
 terraform {
   required_version = ">= 1.13.3"
 
@@ -21,6 +25,6 @@ module "root_project" {
   gcp_project_id   = var.project_id
   gcp_region       = var.region
   gcp_zone         = var.zone
-  gcp_project_name = "NEED_TO_SET"
+  gcp_project_name = local.project_name
   environment      = var.environment
 }
