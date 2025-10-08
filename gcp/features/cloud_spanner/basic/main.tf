@@ -12,7 +12,7 @@ resource "google_project_service" "spanner" {
 resource "google_spanner_instance" "this" {
   name             = var.instance_name
   display_name     = var.instance_display_name
-  config           = var.instance_config      # e.g. regional-asia-southeast1
+  config           = var.instance_config  # e.g. regional-us-central1
   processing_units = var.processing_units # prefer PUs over node_count (1000 PU = 1 node)
 
   labels = {

@@ -16,6 +16,6 @@ k delete svc nginx-service
 k port-forward pod/nginx 8080:80
 k port-forward service/nginx-service 8080:80
 
-# playground
+# Test Service Access
 http :8080
 ```
