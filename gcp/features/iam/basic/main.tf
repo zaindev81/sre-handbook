@@ -47,9 +47,9 @@ resource "google_project_iam_custom_role" "custom_role" {
   stage = "ALPHA" // ALPHA, GA, DISABLED
 
   // This prevents Terraform from accidentally deleting the role even if you run terraform destroy or remove it from code.
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 resource "google_project_iam_member" "sa_custom_role" {
