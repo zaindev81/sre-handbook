@@ -18,3 +18,17 @@ docker run --rm --name jaeger \
   -p 9411:9411 \
   cr.jaegertracing.io/jaegertracing/jaeger:latest
 ```
+
+**docker compose**
+
+- http://localhost:8080/
+- http://localhost:16686/search
+
+```sh
+# Pick the newest version
+export JAEGER_VERSION=2.11.0
+git clone https://github.com/jaegertracing/jaeger.git jaeger
+cd jaeger/examples/hotrod
+docker compose up
+# press Ctrl-C to exit
+```
