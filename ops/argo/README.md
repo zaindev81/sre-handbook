@@ -1,8 +1,13 @@
 # Argo
 
+# Docs
+
 - https://argoproj.github.io/
+- https://github.com/argoproj
 - https://argo-workflows.readthedocs.io/en/latest/
 - https://github.com/argoproj/argo-workflows/tree/main/examples
+
+# Overview
 
 ## Useful Commands
 
@@ -10,7 +15,7 @@
 # kind
 kind delete cluster
 rm -fr ~/.kube/config
-kind create cluster --image=kindest/node:v1.34.0
+kind create cluster --image=kindest/node:v1.33.5
 
 # cluster and nodes
 k cluster-info --context kind-kind
@@ -26,7 +31,7 @@ alias kd='kubectl describe'
 
 ```sh
 # Choose the Argo Workflows version
-ARGO_WORKFLOWS_VERSION="v3.7.1"
+export ARGO_WORKFLOWS_VERSION="v3.7.1"
 
 # Create namespace
 kubectl create namespace argo
@@ -93,7 +98,7 @@ rm -fr ~/.kube/config
 ```sh
 # example's hello-world workflow
 argo submit -n argo --watch hello-world.yaml
-```
 
 kubectl get pods -n argo
 kubectl delete pods --all -n argo
+```
