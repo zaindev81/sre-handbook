@@ -42,5 +42,7 @@ resource "google_bigquery_table" "events" {
 ]
 EOF
 
+  deletion_protection = false
+
   depends_on = [google_bigquery_dataset.this]
 }
