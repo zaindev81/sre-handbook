@@ -1,8 +1,10 @@
 # Kubernetes
 
-- https://github.com/kubernetes/kubernetes
+[Kubernetes docs]https://github.com/kubernetes/kubernetes
 
-## Platforms
+
+### Structures
+
 
 ### Minikube
 

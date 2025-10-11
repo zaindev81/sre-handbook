@@ -21,11 +21,18 @@ k port-forward service/nginx-service 8080:80
 http :8080
 ```
 
-PV and PVC
+### PV and PVC
 
 ```sh
 k get pv
 k get pvc
 kd pv
 kd pvc
+```
+
+### Delete all
+
+```sh
+# Delete all workloads in all namespaces
+kubectl delete deployment,daemonset,statefulset,replicaset,pod --all --all-namespaces
 ```
