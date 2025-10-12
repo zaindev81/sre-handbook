@@ -34,5 +34,5 @@ kd pvc
 
 ```sh
 # Delete all workloads in all namespaces
-kubectl delete deployment,daemonset,statefulset,replicaset,pod --all --all-namespaces
+k delete deployment,daemonset,statefulset,replicaset,pod --all --all-namespaces
 ```

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels: { app: demo-app }
+  annotations:
+    kubernetes.io/change-cause: "Initial release: nginx 1.25"
+    # kubernetes.io/change-cause: "Upgrade: nginx 1.27"
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # up to 1 extra pod during rollout
+      maxUnavailable: 1  # keep all old pods until new ones are ready (zero downtime)
+  selector:
+    matchLabels: { app: demo-app }
+  template:
+    metadata:
+      labels: { app: demo-app }
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.25-alpine
+          #image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet: { path: "/", port: 80 }
+            initialDelaySeconds: 2
+            periodSeconds: 5

@@ -1,0 +1,98 @@
+# 1) Stable Service (front door)
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app
+  labels: { app: demo-app, role: stable }
+spec:
+  selector: { app: demo-app, version: stable }
+  ports: [{ name: http, port: 80, targetPort: 80 }]
+---
+# 2) Stable Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app-stable
+  labels: { app: demo-app, version: stable }
+spec:
+  replicas: 3
+  selector: { matchLabels: { app: demo-app, version: stable } }
+  template:
+    metadata:
+      labels: { app: demo-app, version: stable }
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27-alpine
+          ports: [{ containerPort: 80 }]
+---
+# 3) Canary Service (separate backend)
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app-canary
+  labels: { app: demo-app, role: canary }
+spec:
+  selector: { app: demo-app, version: canary }
+  ports: [{ name: http, port: 80, targetPort: 80 }]
+---
+# 4) Canary Deployment (new version)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app-canary
+  labels: { app: demo-app, version: canary }
+spec:
+  replicas: 1   # small blast radius first
+  selector: { matchLabels: { app: demo-app, version: canary } }
+  template:
+    metadata:
+      labels: { app: demo-app, version: canary }
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27.1-alpine   # ← new build
+          ports: [{ containerPort: 80 }]
+---
+# 5) Primary Ingress → stable service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-app
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: demo-app
+                port: { number: 80 }
+---
+# 6) Canary Ingress (weighted)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-app-canary
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header X-Canary "true";
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-app-canary
+            port:
+              number: 80
+
