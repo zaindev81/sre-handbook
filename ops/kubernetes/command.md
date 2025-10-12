@@ -30,6 +30,13 @@ kd pv
 kd pvc
 ```
 
+### Exec
+
+```sh
+kubectl exec -it <pod-name> -- env
+kubectl exec -it <pod-name> -- env | grep APP_ENV
+```
+
 ### Replace
 
 ```sh
