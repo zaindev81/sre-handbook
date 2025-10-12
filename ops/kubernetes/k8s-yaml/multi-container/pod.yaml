@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-example
+  labels:
+    app: nginx
+spec:
+  volumes:
+    - name: logs
+      emptyDir: {}
+  initContainers:
+    - name: init-logs
+      image: busybox
+      command:
+        - sh
+        - -c
+        - |
+          mkdir -p /var/log/nginx
+          touch /var/log/nginx/access.log /var/log/nginx/error.log
+          chmod 666 /var/log/nginx/*.log
+      volumeMounts:
+        - name: logs
+          mountPath: /var/log/nginx
+
+  containers:
+    - name: app
+      image: nginx:latest
+      volumeMounts:
+        - name: logs
+          mountPath: /var/log/nginx
+      # (optional) probes here …
+
+    # kubectl logs sidecar-example -c log-agent
+    - name: log-agent
+      image: busybox
+      volumeMounts:
+        - name: logs
+          mountPath: /var/log/nginx
+      command:
+        - sh
+        - -c
+        - |
+          # Wait until at least one log file exists, then follow logs forever
+          while ! ls /var/log/nginx/*.log >/dev/null 2>&1; do
+            echo "waiting for nginx logs..."; sleep 1
+          done
+          tail -n+1 -F /var/log/nginx/*.log
