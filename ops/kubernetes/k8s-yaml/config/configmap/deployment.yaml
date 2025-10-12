@@ -12,10 +12,9 @@ spec:
       labels: { app: env-demo }
     spec:
       containers:
-        - name: web
-          image: nginx
-          ports:
-            - containerPort: 80
+        - name: myapp
+          image: alpine
+          command: ["sh", "-c", "echo APP_ENV $APP_ENV && echo LOG_LEVEL $LOG_LEVEL && sleep 3600"]
           envFrom:
             - configMapRef:
                 name: env-demo-config
