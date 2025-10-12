@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-demo
+  labels:
+    app: env-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: env-demo
+  template:
+    metadata:
+      labels:
+        app: env-demo
+    spec:
+      containers:
+        - name: web
+          image: nginx
+          env:
+            - name: APP_ENV
+              value: "production"
+            - name: LOG_LEVEL
+              value: "debug"
+            - name: MAX_CONNECTIONS
+              value: "100"

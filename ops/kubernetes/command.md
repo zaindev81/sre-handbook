@@ -30,6 +30,14 @@ kd pv
 kd pvc
 ```
 
+### Replace
+
+```sh
+kubectl delete pod env-demo
+kubectl apply -f config/basic-value.yaml
+kubectl replace --force -f config/basic-value.yaml
+```
+
 ### Delete all
 
 ```sh
