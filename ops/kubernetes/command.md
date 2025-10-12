@@ -82,3 +82,22 @@ kubectl replace --force -f config/basic-value.yaml
 # Delete all workloads in all namespaces
 k delete deployment,daemonset,statefulset,replicaset,pod --all --all-namespaces
 ```
+
+
+### Plugin
+
+```sh
+kubectl -n kube-system get deploy coredns
+kubectl -n kube-system get pods | grep -i coredns
+
+minikube addons list | grep -i dns
+minikube addons enable coredns
+```
+
+### minikube
+
+```sh
+minikube stop
+minikube delete
+minikube start
+```
