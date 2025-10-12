@@ -30,6 +30,26 @@ kd pv
 kd pvc
 ```
 
+### ConfigMaps
+
+```sh
+k get configmaps
+k get cm
+```
+
+### Create
+
+```sh
+k run webapp --image=nginx --dry-run=client -o yaml
+```
+
+### Edit
+
+```sh
+k edit po basic
+k replace --force -f /tmp//tmp/kubectl-edit-3839359674.yaml
+```
+
 ### Logs
 
 ```sh
