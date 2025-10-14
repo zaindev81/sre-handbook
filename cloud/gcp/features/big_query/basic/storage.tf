@@ -24,10 +24,10 @@ resource "google_storage_bucket" "bq_data" {
     }
   }
 
-  retention_policy {
-    retention_period = 60 * 24 * 60 * 60
-    is_locked        = false
-  }
+  # retention_policy {
+  #   retention_period = 60 * 24 * 60 * 60
+  #   is_locked        = false
+  # }
 }
 
 # Reader role for the BigQuery job runner service account(import source)
