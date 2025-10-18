@@ -3,6 +3,8 @@
 - https://www.cloudskillsboost.google/catalog
 - https://cloud.google.com/learn/training/cloud-infrastructure?hl=en#cloud-engineer-learning-path
 
+- https://www.cloudskillsboost.google/paths/12
+
 ## Theme
 
 - Manage Kubernetes in Google Cloud
