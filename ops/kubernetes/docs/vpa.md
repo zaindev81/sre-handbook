@@ -7,13 +7,15 @@ minikube addons enable metrics-server
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-rbac.yaml
 
-
 k get crd
 
-
+# install
 git clone https://github.com/kubernetes/autoscaler.git
 cd autoscaler/vertical-pod-autoscaler
 ./hack/vpa-up.sh
+
+# down
+./hack/vpa-down.sh
 
 
 kubectl get pods -n kube-system | grep vpa
