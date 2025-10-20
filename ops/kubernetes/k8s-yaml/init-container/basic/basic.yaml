@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-demo
+spec:
+  initContainers:
+    - name: init-myservice
+      image: busybox
+      command: ['sh', '-c', 'echo Initializing... && sleep 5 && echo Done > /work-dir/init.txt']
+      volumeMounts:
+        - name: workdir
+          mountPath: /work-dir
+  containers:
+    - name: app
+      image: busybox
+      command: ['sh', '-c', 'echo Main container running; cat /work-dir/init.txt; sleep 3600']
+      volumeMounts:
+        - name: workdir
+          mountPath: /work-dir
+  volumes:
+    - name: workdir
+      emptyDir: {}

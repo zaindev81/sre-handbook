@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container-demo
+spec:
+  containers:
+    - name: web
+      image: busybox
+      command: ["sh", "-c", "while true; do echo $(date) >> /shared/log.txt; sleep 2; done"]
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+
+    - name: sidecar
+      image: busybox
+      command: ["sh", "-c", "echo '--- Sidecar watching logs ---'; tail -f /shared/log.txt"]
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+
+  volumes:
+    - name: shared-data
+      emptyDir: {}
