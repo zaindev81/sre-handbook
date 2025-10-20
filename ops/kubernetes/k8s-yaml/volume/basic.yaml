@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: basic-volume-pod
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "echo Hello Kubernetes! > /usr/share/busybox/hello.txt && sleep 3600"]
+      volumeMounts:
+        - name: demo-volume
+          mountPath: /usr/share/busybox
+  volumes:
+    - name: demo-volume
+      emptyDir: {}
