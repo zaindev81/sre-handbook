@@ -31,8 +31,28 @@ kubectl describe vpa vpa-demo | grep -A10 Recommendation
 kubectl run -it --rm load --image=busybox -- /bin/sh -c 'while true; do wget -q -O- http://vpa-demo-svc.default.svc.cluster.local > /dev/null; done'
 
 k get deploy -o wide -w
-
 ```
+
+**debug**
+
+```sh
+  Recommendation:
+    Container Recommendations:
+      Container Name:  hpa-example
+      Lower Bound:
+        Cpu:     267m
+        Memory:  250Mi
+      Target:
+        Cpu:     587m
+        Memory:  250Mi
+      Uncapped Target:
+        Cpu:     587m
+        Memory:  250Mi
+      Upper Bound:
+        Cpu:     1
+        Memory:  512Mi
+```
+
 
 **Others**
 
