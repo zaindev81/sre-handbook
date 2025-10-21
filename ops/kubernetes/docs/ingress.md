@@ -18,6 +18,7 @@ kubectl get all -n default
 k apply -f k8s-yaml/ingress/basic/basic.yaml
 k get ingress
 
+# important
 minikube tunnel
 echo "127.0.0.1 myapp.local" | sudo tee -a /etc/hosts
 
@@ -28,4 +29,6 @@ curl -sI http://myapp.local/ | head -n1
 # returns from httpbin
 curl -sI http://myapp.local/api/get
 curl -sI http://myapp.local/api/get | head -n1
+
+k delete -f k8s-yaml/ingress/basic/basic.yaml
 ```
