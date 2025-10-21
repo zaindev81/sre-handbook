@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-demo
+  labels:
+    app: daemonset-demo
+spec:
+  selector:
+    matchLabels:
+      app: daemonset-demo
+  template:
+    metadata:
+      labels:
+        app: daemonset-demo
+    spec:
+      containers:
+      - name: node-logger
+        image: busybox
+        command: ["sh", "-c", "while true; do echo Hello from $(hostname); sleep 5; done"]

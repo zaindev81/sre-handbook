@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-agent
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: log-agent
+  template:
+    metadata:
+      labels:
+        app: log-agent
+    spec:
+      serviceAccountName: default
+      containers:
+      - name: fluent-bit
+        image: fluent/fluent-bit:latest
+        args: ["-c", "/fluent-bit/etc/fluent-bit.conf"]
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+            readOnly: true
+          - name: containers
+            mountPath: /var/log/containers
+            readOnly: true
+          - name: pods
+            mountPath: /var/log/pods
+            readOnly: true
+          - name: docker
+            mountPath: /var/lib/docker/containers
+            readOnly: true
+          - name: fb-config
+            mountPath: /fluent-bit/etc/
+      volumes:
+        - name: varlog
+          hostPath: { path: /var/log }
+        - name: containers
+          hostPath: { path: /var/log/containers }
+        - name: pods
+          hostPath: { path: /var/log/pods }
+        - name: docker
+          hostPath: { path: /var/lib/docker/containers }
+        - name: fb-config
+          configMap:
+            name: fluent-bit-config
