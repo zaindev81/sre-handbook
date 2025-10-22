@@ -67,7 +67,7 @@ resource "google_compute_instance" "vm" {
   }
 
   metadata = {
-    enable-oslogin = "TRUE"
+    ssh-keys = "terraform:${file(var.ssh_key_path)}"
   }
 
   metadata_startup_script = var.startup_script

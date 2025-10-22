@@ -76,3 +76,9 @@ variable "startup_script" {
     echo "Hello from Terraform VM with Nginx!" > /var/www/html/index.nginx-debian.html
   EOT
 }
+
+variable "ssh_key_path" {
+  description = "Path to the SSH public key file"
+  type        = string
+  default     = "~/.ssh/id_gcp.pub"
+}
