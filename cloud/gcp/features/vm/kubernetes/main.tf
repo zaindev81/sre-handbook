@@ -53,13 +53,14 @@ resource "google_compute_firewall" "allow_http" {
 # VM Instance
 #######################
 resource "google_compute_instance" "vm" {
-  name         = var.vm_name
+  for_each = toset(var.vm_names)
+
+  name         = each.value
   machine_type = var.machine_type
   zone         = var.zone
-  tags = ["ssh", "http"]
+  tags         = ["ssh", "http"]
 
   boot_disk {
-    # Boots from Debian 12 image, 10 GB disk, Balanced PD (cost/perf middle ground).
     initialize_params {
       image = "projects/debian-cloud/global/images/family/debian-12"
       size  = 10
@@ -69,23 +70,13 @@ resource "google_compute_instance" "vm" {
 
   network_interface {
     network = "default"
-    # Ephemeral external IP (comment out for private-only)
-    # access_config {} gives the VM an ephemeral external IP (public).
-    # Remove this block for private-only; then use IAP or Cloud NAT to reach the VM.
     access_config {}
   }
 
-  # OS Login is convenient & safer than SSH keys in metadata
-  # Enables OS Login: SSH users are controlled via IAM instead of static SSH keys.
   metadata = {
     enable-oslogin = "TRUE"
-    # enable-oslogin          = "FALSE"
-    # block-project-ssh-keys  = "TRUE"  # only use the instance's keys below
-    # ssh-keys                = "${var.ssh_username}:${chomp(tls_private_key.ssh.public_key_openssh)}"
   }
 
-  # Optional startup script (install nginx as example)
   metadata_startup_script = var.startup_script
-
-  depends_on = [google_project_service.compute]
+  depends_on              = [google_project_service.compute]
 }

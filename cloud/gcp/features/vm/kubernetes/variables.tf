@@ -52,17 +52,16 @@ variable "http_tags" {
 #######################
 # VM Variables
 #######################
-variable "vm_name" {
-  description = "The name of the VM instance"
-  type    = string
-  default = "basic-vm"
+variable "vm_names" {
+  description = "List of VM instance names to create"
+  type        = list(string)
+  default     = ["my-vm", "my-vm-2"]
 }
 
 variable "machine_type" {
   description = "The machine type for the VM instance"
   type    = string
   default = "e2-medium"
-  # default = "e2-micro"
 }
 
 
@@ -72,7 +71,5 @@ variable "startup_script" {
   default = <<-SH
     #!/bin/bash
     apt-get update -y
-    apt-get install -y nginx
-    systemctl enable --now nginx
   SH
 }
