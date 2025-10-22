@@ -2,12 +2,14 @@
 
 ```sh
 # apply
-k apply -f nginx.yaml
-k apply -f nginx-service.yaml
+k apply -f basic.yaml
 
 # get
 k get po
 k get svc
+k get deplou
+k get ingress
+k get po -A
 
 # delete
 k delete -f nginx.yaml

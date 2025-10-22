@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo
+  namespace: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:
+      containers:
+        - name: echo
+          image: hashicorp/http-echo
+          args: ["-text=hello-from-gateway"]
+          ports:
+            - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo
+  namespace: demo
+spec:
+  selector:
+    app: echo
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5678
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: demo-gw
+  namespace: demo
+spec:
+  gatewayClassName: eg   # Envoy Gateway’s class
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: echo-route
+  namespace: demo
+spec:
+  parentRefs:
+    - name: demo-gw
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: echo
+          port: 80

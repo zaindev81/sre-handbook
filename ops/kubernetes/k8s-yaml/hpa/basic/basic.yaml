@@ -25,6 +25,7 @@ spec:
             limits:
               cpu: "500m"
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -39,6 +40,7 @@ spec:
       targetPort: 80
       protocol: TCP
 ---
+
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
