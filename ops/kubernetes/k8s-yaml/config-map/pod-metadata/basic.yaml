@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: metadata-demo
+  labels:
+    app: demo
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "echo My name is $POD_NAME in namespace $POD_NAMESPACE; sleep 3600"]
+      env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: APP_LABEL
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['app']
+

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-pod
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "ls /host; sleep 3600"]
+      volumeMounts:
+        - name: host-volume
+          mountPath: /host
+  volumes:
+    - name: host-volume
+      hostPath:
+        path: /tmp          # Path on the Node
+        type: Directory
