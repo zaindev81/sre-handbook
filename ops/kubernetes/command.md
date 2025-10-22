@@ -1,5 +1,31 @@
 # Command
 
+## Alias
+
+```sh
+alias k='kubectl'
+alias kg='kubectl get'
+alias kd='kubectl describe'
+alias ll='ls -la'
+do='--dry-run=client -o yaml'
+
+# zsh(only)
+do=(--dry-run=client -o yaml)
+
+k run nginx --image=nginx $do
+k run nginx --image=nginx --dry-run=client -o yaml
+k run redis --image=redis123 --dry-run=client -o yaml
+```
+
+## Basic
+
+```sh
+kubectl run nginx --image=nginx
+kubectl run nginx --image=nginx
+```
+
+##
+
 ```sh
 # apply
 k apply -f basic.yaml

@@ -1,11 +1,21 @@
 # Ingress
 
+## Prerequisites
+
+```sh
+minikube addons enable ingress
+minikube addons list
+
+# Ingress is deployed in the ingress-nginx namespace:
+kubectl get pods -n ingress-nginx
+
+# Check Ingress service
+kubectl get svc -n ingress-nginx
+```
+
 ## basic
 
 ```sh
-minikube start
-minikube addons enable ingress
-kubectl get pods -n ingress-nginx
 
 kubectl create deployment frontend --image=nginx:stable
 kubectl expose deployment frontend --port=80 --name=frontend-service

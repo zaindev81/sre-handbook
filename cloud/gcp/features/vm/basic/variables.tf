@@ -52,7 +52,6 @@ variable "http_tags" {
 #######################
 # VM Variables
 #######################
-
 variable "vm_name" {
   description = "The name of the VM instance"
   type    = string
@@ -62,7 +61,8 @@ variable "vm_name" {
 variable "machine_type" {
   description = "The machine type for the VM instance"
   type    = string
-  default = "e2-micro"
+  default = "e2-medium"
+  # default = "e2-micro"
 }
 
 
@@ -76,3 +76,24 @@ variable "startup_script" {
     systemctl enable --now nginx
   SH
 }
+
+#######################
+# SSH key material
+#######################
+# # Generate an SSH keypair at apply time (or comment this block out if you already have a public key)
+# resource "tls_private_key" "ssh" {
+#   algorithm = "ED25519"
+# }
+
+# # Optional: save the private key locally for you to use (adjust path/permissions as you like)
+# resource "local_file" "ssh_private_key" {
+#   filename = "${path.module}/id_ed25519"
+#   content  = tls_private_key.ssh.private_key_openssh
+#   file_permission = "0600"
+# }
+
+# variable "ssh_username" {
+#   description = "Linux username to map the SSH key to"
+#   type        = string
+#   default     = "ubuntu"
+# }
