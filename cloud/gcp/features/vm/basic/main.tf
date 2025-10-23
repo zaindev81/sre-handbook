@@ -62,8 +62,9 @@ resource "google_compute_instance" "vm" {
   }
 
   network_interface {
+    # Use default VPC; add a static external IP if needed
     network = "default"
-    access_config {}
+    access_config {} # ephemeral external IP
   }
 
   metadata = {
