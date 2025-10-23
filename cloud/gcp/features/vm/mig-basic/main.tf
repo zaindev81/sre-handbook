@@ -127,6 +127,16 @@ resource "google_compute_instance_template" "web" {
     systemctl enable nginx --now
   EOT
 
+  # if you want to run a dockerized app, use something like this instead:
+  # metadata_startup_script = <<-EOT
+  # #!/bin/bash
+  # apt-get update
+  # apt-get install -y docker.io
+  # systemctl start docker
+
+  # run -d -p 80:3000 ghcr.io/your-repo/backend:latest
+  # EOT
+
   tags = ["web"]
 
   lifecycle {
